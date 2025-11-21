@@ -1,6 +1,6 @@
-#include "liste.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "liste.h"
 
 // Fonction pour initialiser une liste vide
 void init_liste(struct liste_couleurs* liste) {
@@ -28,21 +28,32 @@ void insertion(struct couleur* c, struct liste_couleurs* liste) {
 // Fonction pour parcourir et afficher toutes les couleurs de la liste
 void parcours(struct liste_couleurs* liste) {
     struct noeud_couleur* courant = liste->tete;
-    int compteur = 1;
+    int index = 1;
     
     if (courant == NULL) {
-        printf("La liste est vide.\n");
+        printf("La liste est vide\n");
         return;
     }
     
-    while (courant != NULL) {
-        printf("Couleur %d : R=0x%02X, G=0x%02X, B=0x%02X, Alpha=0x%02X\n",
-               compteur,
+    while (courant) {
+        printf("Couleur %d: R=%u, G=%u, B=%u, A=%u\n",
+               index,
                courant->couleur.r,
                courant->couleur.g,
                courant->couleur.b,
                courant->couleur.alpha);
         courant = courant->suivant;
-        compteur++;
+        index++;
     }
+}
+
+// Fonction pour libérer toute la liste et la mémoire associée
+void liberer_liste(struct liste_couleurs* liste) {
+    struct noeud_couleur* courant = liste->tete;
+    while (courant) {
+        struct noeud_couleur* tmp = courant;
+        courant = courant->suivant;
+        free(tmp);
+    }
+    liste->tete = NULL;
 }

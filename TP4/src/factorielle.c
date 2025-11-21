@@ -2,6 +2,10 @@
 
 // Définition de la fonction factorielle récursive
 int factorielle(int num) {
+    if (num < 0) {
+        printf("Erreur : factorielle non définie pour les nombres négatifs\n");
+        return -1;
+    }
     if (num == 0) {
         printf("fact(0): 1\n");
         return 1;

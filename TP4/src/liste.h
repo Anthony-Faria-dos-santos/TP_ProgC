@@ -29,4 +29,8 @@ void insertion(struct couleur* c, struct liste_couleurs* liste);
 // Fonction pour parcourir et afficher toutes les couleurs de la liste
 void parcours(struct liste_couleurs* liste);
 
+// Fonction pour libérer toute la liste et la mémoire associée
+void liberer_liste(struct liste_couleurs* liste);
+
+
 #endif
