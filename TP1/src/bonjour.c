@@ -2,6 +2,6 @@
 #include <string.h>
 
 int main() {
-printf("Bonjour le monde");
+printf("Bonjour ESIEE-IT");
 }
 
