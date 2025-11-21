@@ -1,1 +1,179 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "operator.h"
+#include "fichier.h"
+#include "liste.h"
 
+// Fonction d'entrée pour l'exercice 4.1 - Calcul avec opérateurs
+void exercice_4_1() {
+    int num1, num2;
+    char op;
+    int resultat;
+    
+    printf("\n=== Exercice 4.1 - Calcul avec opérateurs ===\n");
+    printf("Entrez num1 : ");
+    scanf("%d", &num1);
+    printf("Entrez num2 : ");
+    scanf("%d", &num2);
+    printf("Entrez l'opérateur (+, -, *, /, %%, &, |, ~) : ");
+    scanf(" %c", &op);
+    
+    switch(op) {
+        case '+':
+            resultat = somme(num1, num2);
+            printf("Résultat : %d\n", resultat);
+            break;
+        case '-':
+            resultat = difference(num1, num2);
+            printf("Résultat : %d\n", resultat);
+            break;
+        case '*':
+            resultat = produit(num1, num2);
+            printf("Résultat : %d\n", resultat);
+            break;
+        case '/':
+            if (num2 == 0) {
+                printf("Erreur : Division par zéro\n");
+            } else {
+                resultat = quotient(num1, num2);
+                printf("Résultat : %d\n", resultat);
+            }
+            break;
+        case '%':
+            if (num2 == 0) {
+                printf("Erreur : Modulo par zéro\n");
+            } else {
+                resultat = modulo(num1, num2);
+                printf("Résultat : %d\n", resultat);
+            }
+            break;
+        case '&':
+            resultat = et_logique(num1, num2);
+            printf("Résultat : %d\n", resultat);
+            break;
+        case '|':
+            resultat = ou_logique(num1, num2);
+            printf("Résultat : %d\n", resultat);
+            break;
+        case '~':
+            resultat = negation(num1, num2);
+            printf("Résultat : %d\n", resultat);
+            break;
+        default:
+            printf("Opérateur non reconnu\n");
+    }
+}
+
+// Fonction d'entrée pour l'exercice 4.2 - Gestion de fichiers
+void exercice_4_2() {
+    int choix;
+    char nom_fichier[256];
+    char message[1024];
+    
+    printf("\n=== Exercice 4.2 - Gestion de fichiers ===\n");
+    
+    while (1) {
+        printf("\nQue souhaitez-vous faire ?\n");
+        printf("1. Lire un fichier\n");
+        printf("2. Écrire dans un fichier\n");
+        printf("3. Retour au menu principal\n");
+        printf("Votre choix : ");
+        scanf("%d", &choix);
+        getchar(); // Consommer le '\n'
+        
+        if (choix == 3) {
+            break;
+        }
+        
+        switch(choix) {
+            case 1:
+                printf("\nEntrez le nom du fichier à lire : ");
+                fgets(nom_fichier, sizeof(nom_fichier), stdin);
+                // Enlever le '\n' à la fin
+                nom_fichier[strcspn(nom_fichier, "\n")] = 0;
+                lire_fichier(nom_fichier);
+                break;
+            case 2:
+                printf("\nEntrez le nom du fichier dans lequel vous souhaitez écrire : ");
+                fgets(nom_fichier, sizeof(nom_fichier), stdin);
+                nom_fichier[strcspn(nom_fichier, "\n")] = 0;
+                
+                printf("Entrez le message à écrire : ");
+                fgets(message, sizeof(message), stdin);
+                message[strcspn(message, "\n")] = 0;
+                
+                ecrire_dans_fichier(nom_fichier, message);
+                break;
+            default:
+                printf("Choix invalide\n");
+        }
+    }
+}
+
+// Fonction d'entrée pour l'exercice 4.7 - Gestion d'une liste de couleurs
+void exercice_4_7() {
+    printf("\n=== Exercice 4.7 - Gestion d'une liste de couleurs ===\n");
+    
+    struct liste_couleurs ma_liste;
+    init_liste(&ma_liste);
+    
+    // Créer 10 couleurs différentes
+    struct couleur couleurs[10] = {
+        {0xFF, 0x00, 0x00, 0xFF}, // Rouge
+        {0x00, 0xFF, 0x00, 0xFF}, // Vert
+        {0x00, 0x00, 0xFF, 0xFF}, // Bleu
+        {0xFF, 0xFF, 0x00, 0xFF}, // Jaune
+        {0xFF, 0x00, 0xFF, 0xFF}, // Magenta
+        {0x00, 0xFF, 0xFF, 0xFF}, // Cyan
+        {0xFF, 0x80, 0x00, 0xFF}, // Orange
+        {0x80, 0x00, 0x80, 0xFF}, // Violet
+        {0xFF, 0xFF, 0xFF, 0xFF}, // Blanc
+        {0x00, 0x00, 0x00, 0xFF}  // Noir
+    };
+    
+    // Insérer toutes les couleurs dans la liste
+    for (int i = 0; i < 10; i++) {
+        insertion(&couleurs[i], &ma_liste);
+    }
+    
+    printf("\nListe des couleurs :\n");
+    parcours(&ma_liste);
+}
+
+int main() {
+    int choix;
+    
+    printf("=================================================\n");
+    printf("   TP4 - Fonctions, Fichiers et Listes\n");
+    printf("=================================================\n");
+    
+    while (1) {
+        printf("\n--- Menu Principal ---\n");
+        printf("1. Exercice 4.1 - Calcul avec opérateurs\n");
+        printf("2. Exercice 4.2 - Gestion de fichiers\n");
+        printf("3. Exercice 4.7 - Gestion d'une liste de couleurs\n");
+        printf("0. Quitter\n");
+        printf("Votre choix : ");
+        scanf("%d", &choix);
+        
+        switch(choix) {
+            case 1:
+                exercice_4_1();
+                break;
+            case 2:
+                exercice_4_2();
+                break;
+            case 3:
+                exercice_4_7();
+                break;
+            case 0:
+                printf("\nAu revoir !\n");
+                return 0;
+            default:
+                printf("Choix invalide. Veuillez réessayer.\n");
+        }
+    }
+    
+    return 0;
+}
