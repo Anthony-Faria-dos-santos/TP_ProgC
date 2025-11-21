@@ -48,6 +48,7 @@ int main() {
     
     // Demande à l'utilisateur d'entrer une phrase
     printf("Entrez la phrase que vous souhaitez chercher : ");
+    fflush(stdout); // Forcer l'affichage du prompt
     
     // Lecture de la phrase (avec fgets pour gérer les espaces)
     if (fgets(phrase_cherchee, sizeof(phrase_cherchee), stdin) != NULL) {
@@ -61,9 +62,13 @@ int main() {
             i++;
         }
         
+        // Affichage de débogage pour voir ce qui a été saisi
+        printf("\nPhrase saisie : [%s]\n", phrase_cherchee);
+        printf("Longueur : %d caractères\n", i);
+        
         // Recherche de la phrase dans le tableau
-        for (int i = 0; i < 10; i++) {
-            if (comparer_chaines(phrases[i], phrase_cherchee)) {
+        for (int j = 0; j < 10; j++) {
+            if (comparer_chaines(phrases[j], phrase_cherchee)) {
                 trouve = 1;
                 break;
             }
@@ -74,6 +79,7 @@ int main() {
             printf("\nRésultat : Phrase trouvée\n");
         } else {
             printf("\nRésultat : Phrase non trouvée\n");
+            printf("\nAstuce : Copiez-collez exactement une des phrases ci-dessus.\n");
         }
     }
     
