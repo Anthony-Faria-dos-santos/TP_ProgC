@@ -14,10 +14,12 @@ void exercice_4_1() {
     printf("\n=== Exercice 4.1 - Calcul avec opérateurs ===\n");
     printf("Entrez num1 : ");
     scanf("%d", &num1);
+    getchar(); // Consommer le '\n'
     printf("Entrez num2 : ");
     scanf("%d", &num2);
+    getchar(); // Consommer le '\n'
     printf("Entrez l'opérateur (+, -, *, /, %%, &, |, ~) : ");
-    scanf(" %c", &op);
+    scanf("%c", &op);
     
     switch(op) {
         case '+':
@@ -156,6 +158,7 @@ int main() {
         printf("0. Quitter\n");
         printf("Votre choix : ");
         scanf("%d", &choix);
+        getchar(); // Consommer le '\n'
         
         switch(choix) {
             case 1:
