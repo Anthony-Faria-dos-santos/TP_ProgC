@@ -46,6 +46,7 @@ int main() {
         char choix_reset;
         printf("\nLe fichier contient déjà 5 étudiant(s).\n");
         printf("Souhaitez-vous le réinitialiser et recommencer à l'étudiant 1 ? (o/n) : ");
+        fflush(stdout);
         scanf(" %c", &choix_reset);
         getchar(); /* consommer le '\n' */
         if (choix_reset == 'o' || choix_reset == 'O') {
@@ -66,26 +67,47 @@ int main() {
 
     for (int i = 0; i < 5 - nb_existants; i++) {
         printf("Entrez les détails de l'étudiant.e %d :\n", nb_existants + i + 1);
+        fflush(stdout);
 
         printf("Nom : ");
-        fgets(etudiant.nom, sizeof(etudiant.nom), stdin);
+        fflush(stdout);
+        if (fgets(etudiant.nom, sizeof(etudiant.nom), stdin) == NULL) {
+            printf("Erreur de lecture\n");
+            return 1;
+        }
         etudiant.nom[strcspn(etudiant.nom, "\n")] = 0;
 
         printf("Prénom : ");
-        fgets(etudiant.prenom, sizeof(etudiant.prenom), stdin);
+        fflush(stdout);
+        if (fgets(etudiant.prenom, sizeof(etudiant.prenom), stdin) == NULL) {
+            printf("Erreur de lecture\n");
+            return 1;
+        }
         etudiant.prenom[strcspn(etudiant.prenom, "\n")] = 0;
 
         printf("Adresse : ");
-        fgets(etudiant.adresse, sizeof(etudiant.adresse), stdin);
+        fflush(stdout);
+        if (fgets(etudiant.adresse, sizeof(etudiant.adresse), stdin) == NULL) {
+            printf("Erreur de lecture\n");
+            return 1;
+        }
         etudiant.adresse[strcspn(etudiant.adresse, "\n")] = 0;
 
         printf("Note 1 : ");
-        scanf("%f", &etudiant.note_c);
-        getchar(); /* Consommer le '\n' après la note */
+        fflush(stdout);
+        if (scanf("%f", &etudiant.note_c) != 1) {
+            printf("Erreur de lecture de la note\n");
+            return 1;
+        }
+        while (getchar() != '\n'); /* Vider le buffer jusqu'au '\n' */
         
         printf("Note 2 : ");
-        scanf("%f", &etudiant.note_os);
-        getchar(); /* Consommer le '\n' après la note */
+        fflush(stdout);
+        if (scanf("%f", &etudiant.note_os) != 1) {
+            printf("Erreur de lecture de la note\n");
+            return 1;
+        }
+        while (getchar() != '\n'); /* Vider le buffer jusqu'au '\n' */
         
         /* Sauvegarde immédiate en mode append */
         char ligne[512];
@@ -105,6 +127,7 @@ int main() {
         /* Demander si l'utilisateur veut continuer */
         if (i < 4 - nb_existants) {
             printf("Voulez-vous ajouter un autre étudiant ? (o/n) : ");
+            fflush(stdout);
             scanf(" %c", &continuer);
             getchar(); /* Consommer le '\n' après la réponse */
             if (continuer != 'o' && continuer != 'O') {
