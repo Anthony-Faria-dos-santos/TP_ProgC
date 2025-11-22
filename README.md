@@ -11,10 +11,11 @@ Chaque dossier de TP (TP1, TP2, TP3, TP4, …) possède un `Makefile` permettant
 ### Usage de base
 
 ```bash
-cd TP4      # ou TP1, TP2, TP3, ...
-make        # compile tous les exécutables
-./main      # exécuter un programme (exemple)
-make clean  # supprimer les exécutables
+cd TP4         # ou TP1, TP2, TP3, ...
+make  all      # compile tous les exécutables du TP
+make calcule   # compile 'calcule.c' à la racine du TP (exemple)
+./main         # exécuter un programme (exemple)
+make clean     # supprimer les exécutables
 make cleanall  # supprimer les exécutables et fichiers .o / .txt etc
 ```
 
