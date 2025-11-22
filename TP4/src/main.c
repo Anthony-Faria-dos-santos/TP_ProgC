@@ -21,49 +21,11 @@ void exercice_4_1() {
   printf("Entrez l'opérateur (+, -, *, /, %%, &, |, ~) : ");
   scanf("%c", &op);
 
-  switch (op) {
-  case '+':
-    resultat = somme(num1, num2);
+  resultat = calcul(num1, num2, op);
+  if (op == '/' && num2 == 0) return; /* Erreur déjà affichée */
+  if (op == '%' && num2 == 0) return; /* Erreur déjà affichée */
+  if (strchr("+-*/%&|~", op) != NULL && !(op == '/' && num2 == 0) && !(op == '%' && num2 == 0)) {
     printf("Résultat : %d\n", resultat);
-    break;
-  case '-':
-    resultat = difference(num1, num2);
-    printf("Résultat : %d\n", resultat);
-    break;
-  case '*':
-    resultat = produit(num1, num2);
-    printf("Résultat : %d\n", resultat);
-    break;
-  case '/':
-    if (num2 == 0) {
-      printf("Erreur : Division par zéro\n");
-    } else {
-      resultat = quotient(num1, num2);
-      printf("Résultat : %d\n", resultat);
-    }
-    break;
-  case '%':
-    if (num2 == 0) {
-      printf("Erreur : Modulo par zéro\n");
-    } else {
-      resultat = modulo(num1, num2);
-      printf("Résultat : %d\n", resultat);
-    }
-    break;
-  case '&':
-    resultat = et_logique(num1, num2);
-    printf("Résultat : %d\n", resultat);
-    break;
-  case '|':
-    resultat = ou_logique(num1, num2);
-    printf("Résultat : %d\n", resultat);
-    break;
-  case '~':
-    resultat = negation(num1, num2);
-    printf("Résultat : %d\n", resultat);
-    break;
-  default:
-    printf("Opérateur non reconnu\n");
   }
 }
 

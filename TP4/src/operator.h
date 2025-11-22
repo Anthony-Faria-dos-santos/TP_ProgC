@@ -25,4 +25,8 @@ int ou_logique(int num1, int num2);
 // Fonction pour la négation (opère sur num1 uniquement)
 int negation(int num1, int num2);
 
+// Fonction dispatch qui applique l'opérateur indiqué par 'op'
+// Retourne 0 et écrit un message d'erreur sur division/modulo par zéro.
+int calcul(int num1, int num2, char op);
+
 #endif
