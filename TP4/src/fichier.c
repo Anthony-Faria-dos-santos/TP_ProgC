@@ -35,3 +35,16 @@ void ecrire_dans_fichier(const char* nom_de_fichier, const char* message) {
     
     printf("Le message a été écrit dans le fichier %s.\n", nom_de_fichier);
 }
+
+// Fonction pour ajouter un message à la fin d'un fichier (mode append)
+void ajouter_dans_fichier(const char* nom_de_fichier, const char* message) {
+    FILE* fichier = fopen(nom_de_fichier, "a");
+    
+    if (fichier == NULL) {
+        printf("Erreur : Impossible d'ouvrir le fichier '%s' en mode ajout\n", nom_de_fichier);
+        return;
+    }
+    
+    fprintf(fichier, "%s", message);
+    fclose(fichier);
+}

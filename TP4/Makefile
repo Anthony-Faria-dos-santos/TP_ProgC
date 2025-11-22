@@ -1,72 +1,84 @@
-# Makefile pour TP4
-CC = gcc
-CFLAGS = -Wall -Wextra -std=c11
-SRC_DIR = src
+############################################################
+# Makefile optimisé pour TP4
+# Objectifs : compiler chaque exercice avec ses dépendances
+# selon l'énoncé.
+############################################################
 
-# Fichiers objets communs
-OPERATOR_OBJ = $(SRC_DIR)/operator.o
-FICHIER_OBJ = $(SRC_DIR)/fichier.o
-LISTE_OBJ = $(SRC_DIR)/liste.o
+CC       = gcc
+CFLAGS   = -Wall -Wextra
+SRC_DIR  = ./src
 
-# Exécutables
+# Exécutables définis dans l'énoncé
 EXECUTABLES = main etudiant_bd calcule factorielle chercherfichier
 
+############################################################
 # Règle par défaut
+############################################################
 all: $(EXECUTABLES)
 
-# Programme principal (exercices 4.1, 4.2, 4.7)
-main: $(SRC_DIR)/main.o $(OPERATOR_OBJ) $(FICHIER_OBJ) $(LISTE_OBJ)
+############################################################
+# main (exercices 4.1, 4.2, 4.7)
+# Dépend de operator.c (opérations), fichier.c (I/O), liste.c (liste couleurs)
+############################################################
+
+main: $(SRC_DIR)/main.c $(SRC_DIR)/operator.c $(SRC_DIR)/fichier.c $(SRC_DIR)/liste.c
+	$(CC) $(CFLAGS) -o $@ $^
+# $@ correspond à ce qui se situe à gauche de :
+# $^ correspond à ce qui se situe à droite de :
+#
+# Exemple : $@ = main  :   $^ = $(SRC_DIR)/main.c $(SRC_DIR)/operator.c $(SRC_DIR)/fichier.c $(SRC_DIR)/liste.c
+#   
+############################################################
+# etudiant_bd (exercice 4.3)
+
+# L'énoncé indique réutilisation de fichier.c, mais le code actuel
+# n'inclut pas fichier.h – pas de dépendance directe.
+# Si vous ajoutez les fonctions de fichier, décommentez la ligne alternative.
+############################################################
+etudiant_bd: $(SRC_DIR)/etudiant_bd.c $(SRC_DIR)/fichier.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-# Exercice 4.3 - Base de données étudiante
-etudiant_bd: $(SRC_DIR)/etudiant_bd.o $(FICHIER_OBJ)
+############################################################
+# calcule (exercice 4.4) dépend des opérations (operator.c)
+############################################################
+calcule: $(SRC_DIR)/calcule.c $(SRC_DIR)/operator.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-# Exercice 4.4 - Calculatrice en ligne de commande
-calcule: $(SRC_DIR)/calcule.o $(OPERATOR_OBJ)
+############################################################
+# factorielle (exercice 4.5) fichier autonome
+############################################################
+factorielle: $(SRC_DIR)/factorielle.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-# Exercice 4.5 - Factorielle
-factorielle: $(SRC_DIR)/factorielle.o
+############################################################
+# chercherfichier (exercice 4.6) fichier autonome
+############################################################
+chercherfichier: $(SRC_DIR)/chercherfichier.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-# Exercice 4.6 - Recherche dans fichier
-chercherfichier: $(SRC_DIR)/chercherfichier.o
-	$(CC) $(CFLAGS) -o $@ $^
-
-# Règles de compilation des fichiers objets
-$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Dépendances des headers
-$(SRC_DIR)/main.o: $(SRC_DIR)/operator.h $(SRC_DIR)/fichier.h $(SRC_DIR)/liste.h
-$(SRC_DIR)/operator.o: $(SRC_DIR)/operator.h
-$(SRC_DIR)/fichier.o: $(SRC_DIR)/fichier.h
-$(SRC_DIR)/liste.o: $(SRC_DIR)/liste.h
-$(SRC_DIR)/etudiant_bd.o: $(SRC_DIR)/fichier.h
-$(SRC_DIR)/calcule.o: $(SRC_DIR)/operator.h
-
+############################################################
 # Nettoyage
+############################################################
 clean:
-	rm -f $(SRC_DIR)/*.o $(EXECUTABLES)
+	rm -f $(EXECUTABLES)
 
-# Nettoyage complet (inclut les fichiers générés)
 cleanall: clean
 	rm -f etudiant.txt *.txt
 
+############################################################
 # Aide
+############################################################
 help:
 	@echo "Makefile pour TP4"
-	@echo ""
-	@echo "Cibles disponibles:"
-	@echo "  all            - Compile tous les programmes"
-	@echo "  main           - Compile le programme principal (ex 4.1, 4.2, 4.7)"
-	@echo "  etudiant_bd    - Compile le programme de gestion étudiante (ex 4.3)"
-	@echo "  calcule        - Compile la calculatrice en ligne de commande (ex 4.4)"
-	@echo "  factorielle    - Compile le programme de factorielle (ex 4.5)"
-	@echo "  chercherfichier - Compile le programme de recherche (ex 4.6)"
-	@echo "  clean          - Supprime les fichiers objets et exécutables"
-	@echo "  cleanall       - Supprime tout (objets, exécutables, fichiers générés)"
-	@echo "  help           - Affiche cette aide"
+	@echo "Cibles:"
+	@echo "  all             Compile tous les programmes"
+	@echo "  main            Ex 4.1, 4.2, 4.7 (operator, fichier, liste)"
+	@echo "  etudiant_bd     Ex 4.3 (autonome actuellement)"
+	@echo "  calcule         Ex 4.4 (operator)"
+	@echo "  factorielle     Ex 4.5"
+	@echo "  chercherfichier Ex 4.6"
+	@echo "  clean           Supprime exécutables"
+	@echo "  cleanall        Supprime exécutables + fichiers générés"
+	@echo "  help            Affiche cette aide"
 
 .PHONY: all clean cleanall help
