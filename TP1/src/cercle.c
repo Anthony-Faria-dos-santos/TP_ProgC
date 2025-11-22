@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <math.h>
 
+/* Certains environnements stricts C99 ne définissent pas M_PI.
+    On le fournit si absent. */
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 int main() {
     double rayon = 6.0;
     double aire = M_PI * rayon * rayon;
