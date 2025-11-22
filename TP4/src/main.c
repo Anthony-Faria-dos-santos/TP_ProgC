@@ -86,18 +86,22 @@ void exercice_4_7() {
   struct liste_couleurs ma_liste;
   init_liste(&ma_liste);
 
-  // Créer 10 couleurs différentes
+  // Affichage d'une liste vide pour démonstration
+  printf("Liste initiale (devrait être vide) :\n");
+  parcours(&ma_liste);
+
+  // Créer 10 couleurs différentes (RGB strict)
   struct couleur couleurs[10] = {
-      {0xFF, 0x00, 0x00, 0xFF}, // Rouge
-      {0x00, 0xFF, 0x00, 0xFF}, // Vert
-      {0x00, 0x00, 0xFF, 0xFF}, // Bleu
-      {0xFF, 0xFF, 0x00, 0xFF}, // Jaune
-      {0xFF, 0x00, 0xFF, 0xFF}, // Magenta
-      {0x00, 0xFF, 0xFF, 0xFF}, // Cyan
-      {0xFF, 0x80, 0x00, 0xFF}, // Orange
-      {0x80, 0x00, 0x80, 0xFF}, // Violet
-      {0xFF, 0xFF, 0xFF, 0xFF}, // Blanc
-      {0x00, 0x00, 0x00, 0xFF}  // Noir
+      creer_couleur(0xFF, 0x00, 0x00), // Rouge
+      creer_couleur(0x00, 0xFF, 0x00), // Vert
+      creer_couleur(0x00, 0x00, 0xFF), // Bleu
+      creer_couleur(0xFF, 0xFF, 0x00), // Jaune
+      creer_couleur(0xFF, 0x00, 0xFF), // Magenta
+      creer_couleur(0x00, 0xFF, 0xFF), // Cyan
+      creer_couleur(0xFF, 0x80, 0x00), // Orange
+      creer_couleur(0x80, 0x00, 0x80), // Violet
+      creer_couleur(0xFF, 0xFF, 0xFF), // Blanc
+      creer_couleur(0x00, 0x00, 0x00)  // Noir
   };
 
   // Insérer toutes les couleurs dans la liste
@@ -105,7 +109,7 @@ void exercice_4_7() {
     insertion(&couleurs[i], &ma_liste);
   }
 
-  printf("\nListe des couleurs :\n");
+  printf("\nListe des couleurs après insertion :\n");
   parcours(&ma_liste);
   
   // Libérer la mémoire allouée

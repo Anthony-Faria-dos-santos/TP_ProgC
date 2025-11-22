@@ -1,8 +1,14 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include "liste.h"
 
-// Fonction pour initialiser une liste vide
+// Créer une couleur RGB
+struct couleur creer_couleur(unsigned char r, unsigned char g, unsigned char b) {
+    struct couleur c = { r, g, b };
+    return c;
+}
+
+// Initialiser une liste vide
 void init_liste(struct liste_couleurs* liste) {
     liste->tete = NULL;
 }
@@ -36,12 +42,11 @@ void parcours(struct liste_couleurs* liste) {
     }
     
     while (courant) {
-        printf("Couleur %d: R=%u, G=%u, B=%u, A=%u\n",
-               index,
-               courant->couleur.r,
-               courant->couleur.g,
-               courant->couleur.b,
-               courant->couleur.alpha);
+         printf("Couleur %d: R=%u, G=%u, B=%u\n",
+             index,
+             courant->couleur.r,
+             courant->couleur.g,
+             courant->couleur.b);
         courant = courant->suivant;
         index++;
     }
