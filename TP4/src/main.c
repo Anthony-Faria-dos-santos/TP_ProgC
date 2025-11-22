@@ -13,12 +13,15 @@ void exercice_4_1() {
 
   printf("\n=== Exercice 4.1 - Calcul avec opérateurs ===\n");
   printf("Entrez num1 : ");
+    fflush(stdout);
   scanf("%d", &num1);
   getchar(); // Consommer le '\n'
   printf("Entrez num2 : ");
+    fflush(stdout);
   scanf("%d", &num2);
   getchar(); // Consommer le '\n'
   printf("Entrez l'opérateur (+, -, *, /, %%, &, |, ~) : ");
+    fflush(stdout);
   scanf("%c", &op);
 
   resultat = calcul(num1, num2, op);
@@ -43,6 +46,7 @@ void exercice_4_2() {
     printf("2. Écrire dans un fichier\n");
     printf("3. Retour au menu principal\n");
     printf("Votre choix : ");
+      fflush(stdout);
     scanf("%d", &choix);
     getchar(); // Consommer le '\n'
 
@@ -53,6 +57,7 @@ void exercice_4_2() {
     switch (choix) {
     case 1:
       printf("\nEntrez le nom du fichier à lire : ");
+        fflush(stdout);
       fgets(nom_fichier, sizeof(nom_fichier), stdin);
       // Enlever le '\n' à la fin
       nom_fichier[strcspn(nom_fichier, "\n")] = 0;
@@ -64,10 +69,12 @@ void exercice_4_2() {
       break;
     case 2:
       printf("\nEntrez le nom du fichier dans lequel vous souhaitez écrire : ");
+        fflush(stdout);
       fgets(nom_fichier, sizeof(nom_fichier), stdin);
       nom_fichier[strcspn(nom_fichier, "\n")] = 0;
 
       printf("Entrez le message à écrire : ");
+        fflush(stdout);
       fgets(message, sizeof(message), stdin);
       message[strcspn(message, "\n")] = 0;
 
@@ -130,6 +137,7 @@ int main() {
     printf("3. Exercice 4.7 - Gestion d'une liste de couleurs\n");
     printf("0. Quitter\n");
     printf("Votre choix : ");
+      fflush(stdout);
     scanf("%d", &choix);
     getchar(); // Consommer le '\n'
 
